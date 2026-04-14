@@ -3,37 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>Portfolio — Senior Product Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            coral: '#F97316',
+            navy: '#0F172A',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
-<body>
-  <h1>My Portfolio</h1>
-  <p>
-    I'm a product designer passionate about crafting intuitive, user-centered experiences.
-    I bridge the gap between user needs and business goals — from early discovery and
-    research through interaction design and polished UI. I care deeply about the details
-    that make products feel effortless to use.
-  </p>
+<body class="bg-navy text-white font-sans antialiased">
 
-  <section>
-    <h2>Selected Work</h2>
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 px-6 py-5 flex justify-between items-center backdrop-blur-sm bg-navy/80 border-b border-white/5">
+    <span class="text-sm font-medium tracking-widest uppercase text-white/50">Portfolio</span>
+    <a href="mailto:hello@example.com" class="text-sm font-medium text-coral hover:text-orange-400 transition-colors">
+      Get in touch →
+    </a>
+  </nav>
 
-    <div>
-      <h3>Project One</h3>
-      <p>Redesigning the onboarding flow to reduce drop-off and improve activation.</p>
-      <a href="#">View Case Study</a>
-    </div>
-
-    <div>
-      <h3>Project Two</h3>
-      <p>Building a design system that unified product experience across five platforms.</p>
-      <a href="#">View Case Study</a>
-    </div>
-
-    <div>
-      <h3>Project Three</h3>
-      <p>Defining the mobile strategy for a B2B SaaS product entering a new market.</p>
-      <a href="#">View Case Study</a>
+  <!-- Hero -->
+  <section class="min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 max-w-5xl mx-auto">
+    <div class="space-y-6">
+      <p class="text-coral text-sm font-semibold tracking-widest uppercase">Available for work</p>
+      <h1 class="text-6xl sm:text-7xl lg:text-8xl font-bold leading-none tracking-tight">
+        Alex Rivera
+      </h1>
+      <p class="text-2xl sm:text-3xl text-white/40 font-light">Senior Product Designer</p>
+      <div class="w-16 h-1 bg-coral rounded-full"></div>
     </div>
   </section>
+
+  <!-- Bio -->
+  <section class="px-6 py-24 max-w-5xl mx-auto border-t border-white/5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase text-coral">About</p>
+      </div>
+      <div class="lg:col-span-2 space-y-4">
+        <p class="text-xl sm:text-2xl text-white/80 leading-relaxed font-light">
+          I design products that feel inevitable — where every interaction earns its place and nothing gets in the user's way.
+        </p>
+        <p class="text-base text-white/50 leading-relaxed">
+          With over eight years shaping B2B and consumer products, I bring a research-first mindset to
+          every engagement. I've led end-to-end design on teams from Series A startups to Fortune 500s,
+          translating messy problems into clear, scalable experiences across web and mobile.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Work -->
+  <section class="px-6 py-24 max-w-5xl mx-auto border-t border-white/5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start mb-16">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase text-coral">Selected Work</p>
+      </div>
+      <div class="lg:col-span-2">
+        <p class="text-white/50">A handful of projects I'm proud of.</p>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+
+      <!-- Card 1 -->
+      <article class="group bg-white/[0.03] border border-white/8 rounded-2xl p-8 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="space-y-3 flex-1">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-coral/10 text-coral border border-coral/20">Onboarding</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">Research</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">SaaS</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white">Activation Redesign</h3>
+            <p class="text-white/50 text-sm leading-relaxed max-w-xl">
+              Overhauled a 9-step onboarding funnel that was losing 60% of users at step three.
+              Led discovery, journey mapping, and rapid prototyping to ship a new flow that cut
+              time-to-value from 12 minutes to under 3.
+            </p>
+          </div>
+          <a href="#" class="text-coral text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 mt-1">
+            View case study →
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="group bg-white/[0.03] border border-white/8 rounded-2xl p-8 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="space-y-3 flex-1">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-coral/10 text-coral border border-coral/20">Design Systems</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">Multi-platform</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">Tokens</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white">Unified Design System</h3>
+            <p class="text-white/50 text-sm leading-relaxed max-w-xl">
+              Built a component library and token architecture from scratch, unifying the product
+              experience across five platforms and two native apps. Reduced designer–developer
+              handoff friction by ~40% and eliminated a year of accumulated UI inconsistencies.
+            </p>
+          </div>
+          <a href="#" class="text-coral text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 mt-1">
+            View case study →
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="group bg-white/[0.03] border border-white/8 rounded-2xl p-8 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="space-y-3 flex-1">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-coral/10 text-coral border border-coral/20">Mobile</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">Strategy</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">B2B</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white">Mobile-First Market Entry</h3>
+            <p class="text-white/50 text-sm leading-relaxed max-w-xl">
+              Defined the mobile strategy and 0→1 product design for a B2B SaaS company entering
+              field-service markets for the first time. Conducted contextual research with 22 field
+              workers and shipped an iOS MVP in 14 weeks.
+            </p>
+          </div>
+          <a href="#" class="text-coral text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 mt-1">
+            View case study →
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Footer / CTA -->
+  <footer class="px-6 py-24 max-w-5xl mx-auto border-t border-white/5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase text-coral">Get in touch</p>
+      </div>
+      <div class="lg:col-span-2 space-y-6">
+        <p class="text-3xl sm:text-4xl font-light text-white/80 leading-snug">
+          Have a project in mind?<br>Let's talk.
+        </p>
+        <a href="mailto:hello@example.com"
+           class="inline-flex items-center gap-2 text-lg font-medium text-coral hover:text-orange-400 transition-colors group">
+          hello@example.com
+          <span class="translate-x-0 group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <p class="text-white/30 text-sm pt-8 border-t border-white/5">
+          © 2026 Alex Rivera
+        </p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
