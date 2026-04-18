@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resource Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#9251e4',
+              light: '#f6f1fd',
+            },
+            neutral: {
+              90: '#1d1533',
+              80: '#2d2152',
+              70: '#372c5b',
+              60: '#554783',
+              50: '#847b9e',
+              20: '#e8e5f1',
+              10: '#f5f6f8',
+            },
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'clickable': '0px 2px 4px 0px rgba(145,139,165,0.24)',
+            'secondary': '0px 1px 2px 0px rgba(145,139,165,0.24)',
+            'tooltip': '0px 4px 8px 0px rgba(0,0,0,0.08)',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-white text-neutral-80 antialiased">
+
+<div class="flex h-screen overflow-hidden">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <!-- Approximation: sidebar items use rounded-2xl; exact radius in Figma is 17px (between rounded-xl=12px and rounded-2xl=16px), using 17px via inline style -->
+  <aside class="bg-neutral-10 w-20 flex-shrink-0 flex flex-col items-center pt-4 relative h-full">
+
+    <!-- Collapse toggle -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-20 mb-5 mt-2">
+      <!-- chevrons-right icon -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="13 17 18 12 13 7"/>
+        <polyline points="6 17 11 12 6 7"/>
+      </svg>
+    </button>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col items-center gap-1 w-full px-3">
+
+      <!-- Home -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] border border-neutral-10 hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z"/>
+          <path d="M9 21V12h6v9"/>
+        </svg>
+      </button>
+
+      <!-- Files -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18M9 21V9"/>
+        </svg>
+      </button>
+
+      <!-- User -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+
+      <!-- Users -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </button>
+
+      <!-- Resource Hub (active) -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[16px] bg-primary-light">
+        <!-- Custom resource-hub icon: approximated as a book/layers icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </button>
+
+      <!-- Divider -->
+      <div class="w-full h-px bg-neutral-20 my-2"></div>
+
+      <!-- Briefcase -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+        </svg>
+      </button>
+
+      <!-- Bar Chart -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </button>
+
+      <!-- Plug -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22v-5"/>
+          <path d="M9 8V2M15 8V2"/>
+          <path d="M18 8H6l1.5 9h9L18 8z"/>
+        </svg>
+      </button>
+
+      <!-- Settings -->
+      <button class="w-14 h-12 flex items-center justify-center rounded-[17px] hover:bg-neutral-20">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+      </button>
+
+    </nav>
+  </aside>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="flex-1 flex flex-col overflow-hidden">
+
+    <!-- TOP BAR -->
+    <header class="flex items-center justify-between px-6 pt-6 pb-4 flex-shrink-0">
+      <!-- Search -->
+      <div class="w-[400px] bg-white border border-neutral-10 rounded-lg shadow-secondary flex items-center gap-1 px-2 py-2 opacity-90">
+        <svg class="shrink-0 text-neutral-50" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span class="font-inter text-sm text-neutral-50 font-medium ml-1">Search for templates, demos, or people</span>
+      </div>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-4">
+        <!-- Invite teammate -->
+        <button class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-primary-light">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          <span class="text-sm font-medium text-neutral-60 font-sans">Invite teammate</span>
+        </button>
+
+        <!-- Help -->
+        <!-- Approximation: using a simple circle question-mark; exact asset is a custom icon -->
+        <button class="text-neutral-50 hover:text-neutral-60">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </button>
+
+        <!-- Avatar -->
+        <!-- Approximation: using initials in a circle; Figma uses a photo ellipse -->
+        <div class="relative w-8 h-8">
+          <div class="w-8 h-8 rounded-full bg-neutral-20 flex items-center justify-center">
+            <span class="font-inter font-bold text-xs text-neutral-60">DR</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE TITLE -->
+    <div class="flex items-center gap-2 px-6 py-4 flex-shrink-0">
+      <!-- Resource hub icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+      <h1 class="text-2xl font-bold text-neutral-60 leading-8">Resource Hub</h1>
+    </div>
+
+    <!-- TABS + CONTROLS ROW -->
+    <div class="flex items-center justify-between px-6 py-4 flex-shrink-0">
+      <!-- Tabs -->
+      <div class="flex items-start">
+        <button class="px-4 py-1 border-b-2 border-primary font-inter text-sm text-primary">Screens</button>
+        <button class="px-4 py-1 border-b-2 border-transparent font-inter text-sm text-neutral-50 hover:text-neutral-60">Media files</button>
+        <button class="px-4 py-1 border-b-2 border-transparent font-inter text-sm text-neutral-50 hover:text-neutral-60">Variables</button>
+        <button class="px-4 py-1 border-b-2 border-transparent font-inter text-sm text-neutral-50 hover:text-neutral-60">Lead Forms</button>
+      </div>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-4">
+        <!-- Sort -->
+        <button class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-neutral-10">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="15" y2="6"/>
+            <line x1="3" y1="12" x2="9" y2="12"/>
+            <polyline points="12 15 15 18 18 15"/>
+            <line x1="15" y1="4" x2="15" y2="18"/>
+          </svg>
+          <span class="text-xs font-sans text-neutral-60">Last Updated</span>
+        </button>
+
+        <!-- Action buttons group -->
+        <div class="flex items-center gap-2">
+          <!-- Capture Screens -->
+          <button class="flex items-center gap-2 h-8 px-2 py-1.5 bg-white border border-neutral-20 rounded-lg shadow-clickable hover:bg-neutral-10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span class="text-xs font-sans text-neutral-60 whitespace-nowrap">Capture Screens</span>
+          </button>
+
+          <!-- Import From Template (primary CTA) -->
+          <button class="flex items-center gap-2 h-8 px-2 py-1.5 bg-primary rounded-lg shadow-clickable hover:bg-opacity-90">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <span class="text-xs font-sans text-white whitespace-nowrap">Import From Template</span>
+          </button>
+        </div>
+
+        <!-- List/Grid toggle -->
+        <!-- Approximation: grid view is active (highlighted), matching Figma's bg-primary-light state on grid icon -->
+        <div class="flex items-center bg-white border border-neutral-20 rounded-lg shadow-clickable overflow-hidden">
+          <button class="flex items-center justify-center px-2 py-1.5 border-r border-neutral-10 hover:bg-neutral-10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </button>
+          <button class="flex items-center justify-center px-2 py-1.5 bg-primary-light border-r border-neutral-10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="flex-1 overflow-y-auto">
+      <table class="w-full border-collapse table-fixed">
+
+        <!-- Table header -->
+        <thead>
+          <tr class="border-b border-neutral-20">
+            <th class="w-14 px-6 py-4 text-left align-middle">
+              <div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div>
+            </th>
+            <th class="w-[320px] px-6 py-4 text-left">
+              <span class="text-xs font-bold uppercase text-neutral-60 tracking-wide">Name</span>
+            </th>
+            <th class="w-40 px-6 py-4 text-left">
+              <span class="text-xs font-bold uppercase text-neutral-60 tracking-wide">Captured By</span>
+            </th>
+            <th class="w-[120px] px-6 py-4 text-left">
+              <span class="text-xs font-bold uppercase text-neutral-60 tracking-wide">Date Captured</span>
+            </th>
+            <th class="w-[120px] px-6 py-4 text-left">
+              <span class="text-xs font-bold uppercase text-neutral-60 tracking-wide">Last Updated</span>
+            </th>
+            <th class="w-[120px] px-6 py-4 text-left">
+              <span class="text-xs font-bold uppercase text-neutral-60 tracking-wide">Used In Templates</span>
+            </th>
+            <th class="flex-1 px-6 py-4"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <!-- ── Section: Default Section ── -->
+          <tr class="border-b border-neutral-20">
+            <td class="px-6 py-4">
+              <div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div>
+            </td>
+            <td colspan="5" class="px-6 py-4">
+              <span class="text-base font-bold text-neutral-80">Default Section</span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="inline-block">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </td>
+          </tr>
+
+          <!-- Row: Dashboard Welcome Screen -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Dashboard Welcome Screen</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: Badass Software -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Badass Software</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: Steps and Tricks -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Steps and Tricks</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: System Status Dashboard -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">System Status Dashboard</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: Quarterly Review -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Quarterly Review</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: B2B Sales Process -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">B2B Sales Process</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: Finance Usecase -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Finance Usecase</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- ── Section: Other Section ── -->
+          <tr class="border-b border-neutral-20">
+            <td class="px-6 py-4">
+              <div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div>
+            </td>
+            <td colspan="5" class="px-6 py-4">
+              <span class="text-base font-bold text-neutral-80">Other Section</span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="inline-block">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </td>
+          </tr>
+
+          <!-- Row: Steps and Tricks (Other Section) -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Steps and Tricks</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: System Status Dashboard (Other Section) -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">System Status Dashboard</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+          <!-- Row: Quarterly Review (Other Section) -->
+          <tr class="border-b border-neutral-20 hover:bg-neutral-10 group">
+            <td class="px-6 py-4"><div class="w-6 h-6 border border-primary rounded-[4px] bg-white"></div></td>
+            <td class="w-[320px] max-w-[320px] px-6 py-4"><span class="text-sm font-medium font-sans text-neutral-80 whitespace-nowrap block truncate">Quarterly Review</span></td>
+            <td class="w-40 px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">Manuela Moncayo</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">03/27/2024</span></td>
+            <td class="w-[120px] px-6 py-4"><span class="font-inter text-sm text-neutral-60 whitespace-nowrap">16</span></td>
+            <td class="px-6 py-4"><div class="flex items-center justify-end gap-2 invisible group-hover:visible">
+              <div class="group/eye relative">
+                <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-[rgba(146,81,228,0.15)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9251e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1.5 flex flex-col items-center pointer-events-none invisible group-hover/eye:visible z-10">
+                  <div class="bg-neutral-90 text-white text-xs font-inter px-2 py-1.5 rounded-lg shadow-tooltip whitespace-nowrap">View Details</div>
+                  <div class="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-90"></div>
+                </div>
+              </div>
+              <button class="w-8 h-8 flex items-center justify-center rounded-[5px] hover:bg-neutral-20">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#554783" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
